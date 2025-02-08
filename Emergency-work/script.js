@@ -21,7 +21,7 @@ const emergencies = [
     },
     {
         title: "Burns",
-        cardImage: "https://t4.ftcdn.net/jpg/04/37/74/63/360_F_437746307_xLV1iCXhvIQwq0okRhLcpGKlAGKCRBUF.jpg",
+        cardImage: "https://png.pngtree.com/png-clipart/20230323/original/pngtree-hand-with-burn-beware-fired-wound-caution-attention-risk-png-image_8999951.png",
         steps: [
             { text: "Remove the person from the heat source.", image: "https://via.placeholder.com/300x200?text=Burns+Step+1" },
             { text: "Cool the burn with running water for at least 10 minutes.", image: "https://via.placeholder.com/300x200?text=Burns+Step+2" },
@@ -51,7 +51,7 @@ const emergencies = [
     },
     {
         title: "Fractures",
-        cardImage: "https://t4.ftcdn.net/jpg/07/61/50/71/360_F_761507133_G9Gbq8CiCWIhhSPg0Vm8TSYEX3akaP44.jpghttps://t4.ftcdn.net/jpg/07/61/50/71/360_F_761507133_G9Gbq8CiCWIhhSPg0Vm8TSYEX3akaP44.jpg",
+        cardImage: "https://media.istockphoto.com/id/1286300531/vector/bone-fracture-trauma-to-the-body-crack-and-splinters.jpg?s=612x612&w=0&k=20&c=Qbkeyjf92nsBA9rKGpJsjejDxW5w7MgMjWcB_rgA4Lk=",
         steps: [
             { text: "Immobilize the injured limb with a splint or cloth.", image: "https://via.placeholder.com/300x200?text=Fracture+Step+1" },
             { text: "Do not try to realign the bone.", image: "https://via.placeholder.com/300x200?text=Fracture+Step+2" },
