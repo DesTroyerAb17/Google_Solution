@@ -3,15 +3,15 @@ const emergencies = [
         title: "CPR",
         cardImage: "https://www.sja.org.uk/globalassets/first-aid-steps-illustrations/cpr-step-3.png",
         steps: [
-            { text: "Check if the person is unresponsive and call emergency services.", image: "https://via.placeholder.com/300x200?text=CPR+Step+1" },
-            { text: "Place them on a firm surface and kneel beside them.", image: "https://via.placeholder.com/300x200?text=CPR+Step+2" },
-            { text: "Start chest compressions (30 compressions at 100-120 per minute).", image: "https://via.placeholder.com/300x200?text=CPR+Step+3" },
-            { text: "Give 2 rescue breaths and repeat cycles until help arrives.", image: "https://via.placeholder.com/300x200?text=CPR+Step+4" }
+            { text: "Check if the person is unresponsive and call emergency services.", image: "https://img.freepik.com/free-vector/emergency-call-concept-illustration_114360-6864.jpg" },
+            { text: "Place them on a firm surface and kneel beside them.", image: "https://www.nwas.nhs.uk/wp-content/uploads/2022/09/teen-cpr-1024x1024.png" },
+            { text: "Start chest compressions (30 compressions at 100-120 per minute).", gif: "https://i.makeagif.com/media/5-17-2015/H0HaN0.gif" },
+            { text: "Give 2 rescue breaths and repeat cycles until help arrives.", gif: "https://media4.giphy.com/media/Q7pEviGHGb0j6cYO4Z/200w.gif?cid=6c09b9520is0lfi1y7x3chlwvm83aefoaq60zco26acyrdoe&ep=v1_gifs_search&rid=200w.gif&ct=g" }
         ]
     },
     {
         title: "Choking",
-        cardImage:"https://www.spectrumhealthlakeland.org/health-wellness/health-library/GetImage/532447",
+        cardImage: "https://www.spectrumhealthlakeland.org/health-wellness/health-library/GetImage/532447",
         steps: [
             { text: "Ask if they can breathe. If not, call emergency services.", image: "https://via.placeholder.com/300x200?text=Choking+Step+1" },
             { text: "Perform 5 strong back blows between the shoulder blades.", image: "https://via.placeholder.com/300x200?text=Choking+Step+2" },
@@ -60,6 +60,7 @@ const emergencies = [
         ]
     }
 ];
+
 const grid = document.getElementById("emergencyGrid");
 const modal = document.getElementById("modal");
 const overlay = document.getElementById("overlay");
@@ -72,21 +73,60 @@ const closeModal = document.getElementById("closeModal");
 
 let currentStep = 0, selectedEmergency = null;
 
+// Function to update modal content and buttons
+function updateModal() {
+    modalImage.src = selectedEmergency.steps[currentStep].gif || selectedEmergency.steps[currentStep].image;
+    modalStep.innerText = selectedEmergency.steps[currentStep].text;
+
+    // Hide "Next" button if on the last step
+    if (currentStep === selectedEmergency.steps.length - 1) {
+        nextStep.style.display = "none";
+    } else {
+        nextStep.style.display = "inline-block";
+    }
+
+    // Hide "Previous" button if on the first step
+    if (currentStep === 0) {
+        prevStep.style.display = "none";
+    } else {
+        prevStep.style.display = "inline-block";
+    }
+}
+
+// Generate emergency cards dynamically
 emergencies.forEach((emergency) => {
     const card = document.createElement("div");
     card.classList.add("card");
     card.innerHTML = `<h2>${emergency.title}</h2><img src="${emergency.cardImage}" class="gif">`;
+
     card.addEventListener("click", () => {
         selectedEmergency = emergency;
         currentStep = 0;
         modalTitle.innerText = emergency.title;
-        modalImage.src = emergency.steps[currentStep].image;
-        modalStep.innerText = emergency.steps[currentStep].text;
+        updateModal();
         modal.style.display = overlay.style.display = "block";
     });
+
     grid.appendChild(card);
 });
 
-nextStep.onclick = () => { if (++currentStep < selectedEmergency.steps.length) { modalImage.src = selectedEmergency.steps[currentStep].image; modalStep.innerText = selectedEmergency.steps[currentStep].text; }};
-prevStep.onclick = () => { if (--currentStep >= 0) { modalImage.src = selectedEmergency.steps[currentStep].image; modalStep.innerText = selectedEmergency.steps[currentStep].text; }};
-closeModal.onclick = overlay.onclick = () => { modal.style.display = overlay.style.display = "none"; };
+// Handle "Next" button click
+nextStep.onclick = () => { 
+    if (currentStep < selectedEmergency.steps.length - 1) { 
+        currentStep++;
+        updateModal();
+    }
+};
+
+// Handle "Previous" button click
+prevStep.onclick = () => { 
+    if (currentStep > 0) { 
+        currentStep--;
+        updateModal();
+    }
+};
+
+// Close the modal
+closeModal.onclick = overlay.onclick = () => { 
+    modal.style.display = overlay.style.display = "none"; 
+};
