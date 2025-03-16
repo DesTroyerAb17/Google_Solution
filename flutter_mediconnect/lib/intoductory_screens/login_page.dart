@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mediconnect/user_select_screen.dart';
+import 'package:flutter_mediconnect/otp_page.dart'; // Import OtpPage
 import 'package:flutter_svg/flutter_svg.dart'; // For SVG Logo
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -221,7 +222,11 @@ class _LoginPageState extends State<LoginPage> {
                           child: ElevatedButton(
                             onPressed: isPhoneValid
                                 ? () {
-                                    // TODO: Implement OTP Verification
+                                    // Navigate to OTP Page
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => const OtpPage()),
+                                    );
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
