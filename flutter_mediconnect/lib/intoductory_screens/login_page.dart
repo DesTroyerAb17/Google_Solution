@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mediconnect/user_select_screen.dart';
-import 'package:flutter_mediconnect/otp_page.dart'; // Import OtpPage
+import 'package:flutter_mediconnect/intoductory_screens/user_select_screen.dart';
+import 'package:flutter_mediconnect/intoductory_screens/otp_page.dart'; // Import OtpPage
 import 'package:flutter_svg/flutter_svg.dart'; // For SVG Logo
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 

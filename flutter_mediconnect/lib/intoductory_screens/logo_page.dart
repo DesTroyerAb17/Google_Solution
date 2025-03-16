@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_mediconnect/language_select_screen.dart';
+import 'package:flutter_mediconnect/intoductory_screens/language_select_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class LogoPage extends StatefulWidget {
