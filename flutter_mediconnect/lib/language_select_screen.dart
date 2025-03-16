@@ -107,7 +107,7 @@ class _LanguageSelectScreenState extends State<LanguageSelectScreen> {
             child: ElevatedButton(
               onPressed: selectedLanguage != null ? () {
                 // Navigate to Login Page
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );

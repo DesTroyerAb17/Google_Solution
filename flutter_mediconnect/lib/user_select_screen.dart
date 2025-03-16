@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mediconnect/doctor%20signup/signup_screen_1.dart';
+import 'package:flutter_mediconnect/patient%20signup/signup_screen_1.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 class UserSelectionScreen extends StatefulWidget {
   const UserSelectionScreen({super.key});
@@ -13,7 +17,6 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -63,27 +66,22 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                     selectedUser = "Doctor";
                   });
                 },
-                child: Container(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  width: selectedUser == "Doctor" ? 140 : 120,
+                  height: selectedUser == "Doctor" ? 180 : 160,
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(15),
                     border: Border.all(
-                      color: selectedUser == "Doctor" ? Colors.blue : Colors.transparent,
-                      width: 2.0,
+                      color: selectedUser == "Doctor" ? const Color(0xFF064D99) : Colors.transparent,
+                      width: 2,
                     ),
                   ),
-                  child: Padding( // Add padding here
-                    padding: const EdgeInsets.all(4.0), // Adjust padding as needed
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4.0), // Adjust image radius according to padding
-                      child: Image.asset(
-                        selectedUser == "Doctor"
-                            ? 'assets/image_assets/doctor_selected.png'
-                            : 'assets/image_assets/doctor.png',
-                        width: 160,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  child: SvgPicture.asset(
+                    'assets/image_assets/doctor.svg',
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -96,27 +94,22 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                     selectedUser = "Patient";
                   });
                 },
-                child: Container(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  width: selectedUser == "Patient" ? 140 : 120,
+                  height: selectedUser == "Patient" ? 180 : 160,
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(15),
                     border: Border.all(
-                      color: selectedUser == "Patient" ? Colors.blue : Colors.transparent,
-                      width: 2.0,
+                      color: selectedUser == "Patient" ? const Color(0xFF064D99) : Colors.transparent,
+                      width: 2,
                     ),
                   ),
-                  child: Padding( // Add padding here
-                    padding: const EdgeInsets.all(4.0), // Adjust padding as needed
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4.0), // Adjust image radius according to padding
-                      child: Image.asset(
-                        selectedUser == "Patient"
-                            ? "assets/image_assets/patient_selected.png"
-                            : "assets/image_assets/patient.png",
-                        width: 160,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                  child: SvgPicture.asset(
+                    'assets/image_assets/patient.svg',
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -124,30 +117,37 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
           ),
           const SizedBox(height: 30),
 
-          // Confirm Selection Button
+          // Confirm Selection Button (Navigates to Signup Screens)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ElevatedButton(
               onPressed: selectedUser != null
                   ? () {
-                      Navigator.pop(context);
+                      if (selectedUser == "Doctor") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const DoctorSignupScreen1()),
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const patient_signup_screen1()),
+                        );
+                      }
                     }
                   : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedUser != null
-                    ? const Color(0xFFFF8B01)
-                    : Colors.grey[300],
+                    ? const Color(0xFFFF8B01) // Orange when enabled
+                    : Colors.grey[300], // Light gray when disabled
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Text(
+              child: const Text(
                 "Confirm Selection",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: selectedUser != null ? Colors.white : Colors.black54,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
           ),
