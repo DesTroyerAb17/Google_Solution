@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mediconnect/doctor%20signup/signup_screen_2.dart';
+import 'package:flutter_mediconnect/intoductory_screens/login_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 
@@ -128,7 +129,10 @@ class _DoctorSignupScreen1State extends State<DoctorSignupScreen1> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to login or existing account
+                      Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                    );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFFF8B01),

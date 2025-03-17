@@ -174,8 +174,13 @@ class _DoctorSignupScreen2State extends State<DoctorSignupScreen2> {
                     ? () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const DoctorSignupScreen3()),
-                        );
+                            MaterialPageRoute(
+                              builder: (context) => DoctorSignupScreen3(
+                                doctorName: "Dr ${nameController.text.trim()}", // Pass Doctor's Name
+                              ),
+                          ),
+                       );
+
                       }
                     : null, // Disabled when fields are empty or invalid
                 style: ElevatedButton.styleFrom(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mediconnect/intoductory_screens/user_select_screen.dart';
 import 'package:flutter_mediconnect/intoductory_screens/otp_page.dart'; // Import OtpPage
-import 'package:flutter_svg/flutter_svg.dart'; // For SVG Logo
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class LoginPage extends StatefulWidget {
@@ -132,38 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
 
                 // Google Sign-In Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // TODO: Implement Google Sign-In
-                    },
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      side: BorderSide(color: Colors.grey.shade400),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/image_assets/google_icon.svg',
-                          width: 24,
-                        ),
-                        const SizedBox(width: 10),
-                        const Expanded(
-                          child: Text(
-                            "Continue with Google",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                
 
                 const SizedBox(height: 12),
 
