@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mediconnect/intoductory_screens/user_select_screen.dart';
-import 'package:flutter_mediconnect/intoductory_screens/otp_page.dart'; // Import OtpPage
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_mediconnect/intoductory_screens/otp_page.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_mediconnect/intoductory_screens/user_select_screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +14,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController phoneController = TextEditingController();
   bool isKeyboardVisible = false;
+  bool isLoading = false;
+  String? errorMessage;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool get isPhoneValid => RegExp(r'^[6-9]\d{9}$').hasMatch(phoneController.text);
 
@@ -34,6 +38,62 @@ class _LoginPageState extends State<LoginPage> {
   void dispose() {
     phoneController.dispose();
     super.dispose();
+  }
+
+  Future<void> sendOTP() async {
+    setState(() {
+      isLoading = true;
+      errorMessage = null;
+    });
+
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: "+91${phoneController.text}",
+        timeout: const Duration(seconds: 60), // Timeout for auto OTP retrieval
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _auth.signInWithCredential(credential);
+          if (context.mounted) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => OtpPage(
+                verificationId: credential.verificationId!,
+                phoneNumber: "+91${phoneController.text}",
+              )),
+            );
+          }
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          setState(() {
+            errorMessage = e.message ?? "OTP verification failed. Try again.";
+            isLoading = false;
+          });
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OtpPage(
+                verificationId: verificationId,
+                phoneNumber: "+91${phoneController.text}",
+              ),
+            ),
+          );
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          setState(() {
+            isLoading = false;
+          });
+        },
+      );
+    } catch (e) {
+      setState(() {
+        errorMessage = "Error sending OTP. Check your network.";
+        isLoading = false;
+      });
+    }
   }
 
   @override
@@ -114,6 +174,15 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
 
+                if (errorMessage != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(
+                      errorMessage!,
+                      style: const TextStyle(color: Colors.red, fontSize: 14),
+                    ),
+                  ),
+
                 const SizedBox(height: 20),
 
                 // Login Options Divider
@@ -130,111 +199,54 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 20),
 
-                // Google Sign-In Button
-                
-
-                const SizedBox(height: 12),
-
-                // Guest Login Button
+                // "Get OTP" Button
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
+                  child: ElevatedButton(
+                    onPressed: isPhoneValid && !isLoading ? sendOTP : null,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isPhoneValid && !isLoading ? const Color(0xFFFF8B01) : Colors.grey.shade300,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      side: BorderSide(color: Colors.grey.shade400),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.person_outline, size: 24, color: Colors.black),
-                        const SizedBox(width: 10),
-                        const Expanded(
-                          child: Text(
-                            "Guest login",
-                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.black),
-                            textAlign: TextAlign.center,
+                    child: isLoading
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : Text(
+                            "Get OTP",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: isPhoneValid ? Colors.white : Colors.black54,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
-                // Terms & Conditions
-                Center(
-                  child: TextButton(
-                    onPressed: () {},
+                // "I don’t have an account" Button
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const UserSelectionScreen()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF8B01),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: const Text(
-                      "Read our Terms and Conditions",
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
+                      "I don’t have an account",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                   ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // "Get OTP" or "I don’t have an account" Button
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: isKeyboardVisible
-                      ? SizedBox(
-                          key: const ValueKey("get_otp"),
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: isPhoneValid
-                                ? () {
-                                    // Navigate to OTP Page
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const OtpPage()),
-                                    );
-                                  }
-                                : null,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: isPhoneValid ? const Color(0xFFFF8B01) : Colors.grey.shade300,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: Text(
-                              "Get OTP",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: isPhoneValid ? Colors.white : Colors.black54,
-                              ),
-                            ),
-                          ),
-                        )
-                      : SizedBox(
-                          key: const ValueKey("signup"),
-                          width: double.infinity,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const UserSelectionScreen()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFFFF8B01),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Text(
-                              "I don’t have an account",
-                              style: TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                          ),
-                        ),
                 ),
               ],
             ),

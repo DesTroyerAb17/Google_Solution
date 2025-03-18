@@ -5,6 +5,14 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return WillPopScope(
+      onWillPop: () async {
+        return false; // ❌ Prevents back button navigation
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text("Home")),
+        body: const Center(child: Text("Welcome to HomePage!")),
+      ),
+    );
   }
 }
