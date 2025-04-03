@@ -51,3 +51,6 @@ flutter:
     - assets/image_assets/skin_cancer.svg
     - assets/image_assets/consult.svg
     - assets/image_assets/oral_cancer.svg
+    - assets/image_assets/doctor_phone.svg
+    - assets/image_assets/doctor.png
+    - assets/image_assets/patient.png

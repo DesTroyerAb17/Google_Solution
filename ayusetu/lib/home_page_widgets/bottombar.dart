@@ -1,5 +1,6 @@
 import 'package:ayusetu/ai%20diagnosis/aidiagnosis.dart';
-import 'package:ayusetu/screen_pages/consultpage.dart';
+import 'package:ayusetu/screen_pages/consultation_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // SVG support
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,7 @@ class BottomNavBar extends StatelessWidget {
               onTap: () {
               Navigator.push(
                 context,
-               MaterialPageRoute(builder: (context) => Consultpage()),
+               MaterialPageRoute(builder: (context) => ConsultationPage()),
                 );
               },
             ),

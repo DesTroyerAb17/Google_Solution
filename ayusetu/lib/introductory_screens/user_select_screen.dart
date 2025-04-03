@@ -1,7 +1,6 @@
-import 'package:ayusetu/doctor%20signup/signup_screen_1.dart';
-import 'package:ayusetu/patient%20signup/signup_screen_1.dart';
+import 'package:ayusetu/doctor signup/signup_screen_1.dart';
+import 'package:ayusetu/patient signup/signup_screen_1.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class UserSelectionScreen extends StatefulWidget {
   const UserSelectionScreen({super.key});
@@ -78,11 +77,11 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                       width: 2,
                     ),
                   ),
-                  child: SvgPicture.asset(
-                    'assets/image_assets/doctor.svg',
-                    fit: BoxFit.contain, // Ensure the image scales correctly
-                    width: 120, // Set fixed width
-                    height: 120, // Set fixed height
+                  child: Image.asset(
+                    'assets/image_assets/doctor.png',
+                    fit: BoxFit.contain,
+                    width: 120,
+                    height: 120,
                   ),
                 ),
               ),
@@ -108,11 +107,11 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                       width: 2,
                     ),
                   ),
-                  child: SvgPicture.asset(
-                    'assets/image_assets/patient.svg',
-                    fit: BoxFit.contain, // Ensure the image scales correctly
-                    width: 120, // Set fixed width
-                    height: 120, // Set fixed height
+                  child: Image.asset(
+                    'assets/image_assets/patient.png',
+                    fit: BoxFit.contain,
+                    width: 120,
+                    height: 120,
                   ),
                 ),
               ),
@@ -120,7 +119,7 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
           ),
           const SizedBox(height: 30),
 
-          // Confirm Selection Button (Navigates to Signup Screens)
+          // Confirm Selection Button
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ElevatedButton(
@@ -129,20 +128,20 @@ class _UserSelectionScreenState extends State<UserSelectionScreen> {
                       if (selectedUser == "Doctor") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DoctorSignupScreen1()), // Navigate to Doctor SignUp Screen
+                          MaterialPageRoute(builder: (context) => DoctorSignupScreen1()),
                         );
                       } else if (selectedUser == "Patient") {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PatientSignupScreen1()), // Navigate to Patient SignUp Screen
+                          MaterialPageRoute(builder: (context) => PatientSignupScreen1()),
                         );
                       }
                     }
                   : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedUser != null
-                    ? const Color(0xFFFF8B01) // Orange when enabled
-                    : Colors.grey[300], // Light gray when disabled
+                    ? const Color(0xFFFF8B01)
+                    : Colors.grey[300],
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),

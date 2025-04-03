@@ -2,7 +2,8 @@ import 'package:ayusetu/home_page_widgets/bottombar.dart';
 import 'package:ayusetu/home_page_widgets/feedpage.dart';
 import 'package:ayusetu/home_page_widgets/sideDrawer.dart';
 import 'package:ayusetu/home_page_widgets/topbar.dart';
-import 'package:ayusetu/screen_pages/consultpage.dart';
+import 'package:ayusetu/screen_pages/consultation_page.dart';
+
 import 'package:flutter/material.dart';
 
 
@@ -18,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _pages = [
   FeedPage(),
-  Consultpage(), // ✅ Now tapping "Search" shows this
+  ConsultationPage(), // ✅ Now tapping "Search" shows this
 ];
 
 

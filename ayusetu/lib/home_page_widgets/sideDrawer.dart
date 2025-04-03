@@ -2,6 +2,7 @@ import 'package:ayusetu/drawer%20pages/addpatient.dart';
 import 'package:ayusetu/drawer%20pages/health_page.dart';
 import 'package:ayusetu/globalVariables.dart';
 import 'package:ayusetu/models/Myfamilypage.dart';
+import 'package:ayusetu/screen_pages/my_appointment.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -74,7 +75,7 @@ class SideDrawer extends StatelessWidget {
             trailing: Icons.chevron_right,
           ),
           _drawerItem(Icons.file_copy, "My Reports", (){}, trailing: Icons.chevron_right),
-          _drawerItem(Icons.calendar_today, "My Appointments", () {}, trailing: Icons.chevron_right),
+          _drawerItem(Icons.calendar_today, "My Appointments", () => _navigateTo(context, MyAppointmentsPage()), trailing: Icons.chevron_right),
           _drawerItem(Icons.library_books, "Health Blog", () => _navigateTo(context, HealthBlogPage()), trailing: Icons.chevron_right),
 
           Divider(),
