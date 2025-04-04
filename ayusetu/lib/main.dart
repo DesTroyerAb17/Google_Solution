@@ -12,17 +12,9 @@ void main() async {
     Hive.registerAdapter(ChatHistoryAdapter()); // ✅ Register adapter
     await Hive.openBox<ChatHistory>('chat_history'); // ✅ Open chat history box
 
-    runApp(const MainApp());
+    runApp(MainApp());
   } catch (e) {
     runApp(MaterialApp(
-      theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0,
-        ),
-      ),
       home: Scaffold(
         body: Center(
           child: Text('Error: ${e.toString()}'),
@@ -37,22 +29,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          elevation: 0,
-        ),
-        textTheme: ThemeData.light().textTheme.apply(
-              bodyColor: Colors.black,
-              displayColor: Colors.black,
-            ),
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-      home: const LogoPage(),
+      home: LogoPage(),
     );
   }
 }

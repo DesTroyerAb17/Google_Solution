@@ -1,3 +1,4 @@
+import 'package:ayusetu/screen_pages/consultation_page.dart';
 import 'package:flutter/material.dart';
 
 class DiagnosisResultPage extends StatelessWidget {
@@ -108,7 +109,10 @@ class DiagnosisResultPage extends StatelessWidget {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: () {
-                        // Implement action for Get Professional Help
+                        Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConsultationPage()),
+    );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFF8B01),
@@ -179,7 +183,10 @@ class DiagnosisResultPage extends StatelessWidget {
               // Book Online Consultation Button with Full Width
               ElevatedButton(
                 onPressed: () {
-                  // Implement booking consultation logic
+                   Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConsultationPage()),
+    );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFF8B01),
@@ -191,6 +198,7 @@ class DiagnosisResultPage extends StatelessWidget {
                   ),
                 ),
                 child: Text("Book Online Consultation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                
               ),
             ],
           ),

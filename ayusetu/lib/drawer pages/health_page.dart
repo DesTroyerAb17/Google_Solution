@@ -1,6 +1,4 @@
-import 'package:ayusetu/drawer%20pages/blog_infographic_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quill/flutter_quill.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'infographic_blog.dart'; // ✅ This imports the full list of infographic pages
 

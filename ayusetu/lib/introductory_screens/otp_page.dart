@@ -67,7 +67,10 @@ class _OtpPageState extends State<OtpPage> {
         verification_token = responseData['token']; // Store the token
         verification_id = responseData['profile']['_id']; // Store the user ID
         username = responseData['profile']['name']; // Store the username
-        phoneNumber = responseData['profile']['phoneNumber']; // Store the phone number
+        phoneNumber = responseData['profile']['phoneNumber']; 
+        role = responseData['role']; 
+
+        // Store the phone number
 
         // Print the values to verify they're stored correctly
         print("Verification Token: $verification_token");
@@ -78,7 +81,7 @@ class _OtpPageState extends State<OtpPage> {
         // Navigate to home page or next screen
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MainScreen()), // Change to your desired page
+          MaterialPageRoute(builder: (context) => MainScreen(userRole: role)), // Change to your desired page
         );
       } else {
         // If the response is unsuccessful (e.g., Invalid OTP)

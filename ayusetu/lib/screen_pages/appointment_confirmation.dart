@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ayusetu/screen_pages/my_appointment.dart';
 import 'package:ayusetu/screen_pages/homepage.dart';
+import 'package:ayusetu/globalVariables.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
@@ -135,7 +136,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => MainScreen()),
+                    MaterialPageRoute(builder: (context) => MainScreen(userRole: role)),
                   );
                 },
                 icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF064D99), size: 16),

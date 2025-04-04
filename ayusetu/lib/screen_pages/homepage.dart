@@ -6,9 +6,10 @@ import 'package:ayusetu/screen_pages/consultation_page.dart';
 
 import 'package:flutter/material.dart';
 
-
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  final String userRole; // 👈 Add this
+
+  const MainScreen({super.key, required this.userRole}); // 👈 Make it required
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -18,10 +19,9 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-  FeedPage(),
-  ConsultationPage(), // ✅ Now tapping "Search" shows this
-];
-
+    FeedPage(),
+    ConsultationPage(), // Or AppointmentsPage if doctor
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -33,11 +33,12 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TopBar(),
-      drawer: SideDrawer(), // ✅ Attach Side Drawer
+      drawer: SideDrawer(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
+        role: widget.userRole, // ✅ Pass the role here
       ),
     );
   }

@@ -3,6 +3,7 @@ var verification_token="";
 var username="";
 var phoneNumber="";
 var verification_id="";
+var role="";
 List<Map<String,String>> familymembers=
 [];
 

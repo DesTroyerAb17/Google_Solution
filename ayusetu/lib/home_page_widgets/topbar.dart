@@ -1,4 +1,5 @@
 import 'package:ayusetu/feedpage/postcreation.dart';
+import 'package:ayusetu/globalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,9 +15,13 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           GestureDetector(
-            onTap: () {
-              Scaffold.of(context).openDrawer();
-            },
+  onTap: () {
+    if (role == 'patient') {
+      Scaffold.of(context).openDrawer();
+    }
+  },
+
+
             child: CircleAvatar(
               radius: 18,
               backgroundImage: AssetImage('assets/image_assets/3d_avatar_21.png'),

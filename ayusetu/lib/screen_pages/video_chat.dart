@@ -1,3 +1,4 @@
+import 'package:ayusetu/globalVariables.dart';
 import 'package:ayusetu/screen_pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';  // Import flutter_svg package to use for SVG files
@@ -87,7 +88,7 @@ class VideoCallPage extends StatelessWidget {
                       // Logic for ending the call and navigating back to HomePage
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => MainScreen()), // Navigate to HomePage
+                        MaterialPageRoute(builder: (context) => MainScreen(userRole: role)), // Navigate to HomePage
                       );
                     },
                     child: Container(

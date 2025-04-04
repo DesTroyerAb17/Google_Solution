@@ -263,7 +263,7 @@ class _FeedPageState extends State<FeedPage> {
   }) {
     return Container(
       width: double.infinity,
-      
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),

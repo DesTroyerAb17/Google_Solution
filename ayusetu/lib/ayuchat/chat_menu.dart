@@ -1,4 +1,5 @@
 import 'package:ayusetu/ayuchat/chat_history.dart';
+import 'package:ayusetu/globalVariables.dart' show role;
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'bot.dart'; // your chatbot screen
@@ -102,7 +103,7 @@ class _ChatMenuPageState extends State<ChatMenuPage> {
     icon: const Icon(Icons.arrow_back, color: Colors.white),
     onPressed: () => Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (_) => const MainScreen()),
+      MaterialPageRoute(builder: (_) => MainScreen(userRole: role,)),
     ),
   ),
   actions: [
