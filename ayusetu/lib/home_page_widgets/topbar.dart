@@ -1,3 +1,4 @@
+// TOPBAR.dart
 import 'package:ayusetu/feedpage/postcreation.dart';
 import 'package:ayusetu/globalVariables.dart';
 import 'package:flutter/material.dart';
@@ -9,46 +10,45 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFF064D99),
+      backgroundColor: const Color(0xFF064D99),
       elevation: 0,
       automaticallyImplyLeading: false,
       title: Row(
         children: [
-          GestureDetector(
-  onTap: () {
-    if (role == 'patient') {
-      Scaffold.of(context).openDrawer();
-    }
-  },
-
-
-            child: CircleAvatar(
-              radius: 18,
-              backgroundImage: AssetImage('assets/image_assets/3d_avatar_21.png'),
-            ),
+          Builder(
+            builder: (BuildContext context) {
+              return GestureDetector(
+                onTap: () {
+                  Scaffold.of(context).openDrawer(); // ✅ Open drawer for both roles
+                },
+                child: const CircleAvatar(
+                  radius: 18,
+                  backgroundImage: AssetImage('assets/image_assets/3d_avatar_21.png'),
+                ),
+              );
+            },
           ),
-          SizedBox(width: 25),
+          const SizedBox(width: 25),
           Expanded(
             child: GestureDetector(
               onTap: () {
-                // ✅ Navigate to Create Post Page
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CreatePostPage()),
                 );
               },
-              child: AbsorbPointer( // ✅ Prevent TextField from gaining focus
+              child: AbsorbPointer(
                 child: TextField(
                   readOnly: true,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                     filled: true,
                     fillColor: Colors.white,
                     hintText: 'Post your medical experience',
                     hintStyle: GoogleFonts.roboto(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFFB8C1CC),
+                      color: const Color(0xFFB8C1CC),
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -59,9 +59,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white, size: 28),
+            icon: const Icon(Icons.notifications, color: Colors.white, size: 28),
             onPressed: () {
               print("Notification Icon Clicked!");
             },
@@ -72,5 +72,5 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(56);
+  Size get preferredSize => const Size.fromHeight(56);
 }

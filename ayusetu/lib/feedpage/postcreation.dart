@@ -141,7 +141,7 @@ class _CreatePostPageState extends State<CreatePostPage> {
         elevation: 1,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+       
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -5,9 +5,14 @@ class DiagnosisResultPage extends StatelessWidget {
   final bool isDetected;
   final double confidence;
   final String diseaseName;
-  final Map<String, String>  patientDetails;
+  final Map<String, String> patientDetails;
 
-  const DiagnosisResultPage({super.key, required this.isDetected, required this.confidence, required this.diseaseName, required this.patientDetails});
+  const DiagnosisResultPage(
+      {super.key,
+      required this.isDetected,
+      required this.confidence,
+      required this.diseaseName,
+      required this.patientDetails});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class DiagnosisResultPage extends StatelessWidget {
         backgroundColor: Color(0xFFFF8B01),
         title: Text(
           'Diagnosis Report',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold , color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -38,13 +43,11 @@ class DiagnosisResultPage extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(patientDetails['name'] ?? 'Unknown',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                         Text(
-                          patientDetails['name'] ?? 'Unknown', 
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
-                        ),
-                        Text(
-                          "${patientDetails['gender'] ?? 'Unknown'} | ${patientDetails['age'] ?? 'Unknown'} yrs | ${patientDetails['weight'] ?? 'Unknown'} kg", 
-                          style: TextStyle(fontSize: 14))
+                            "${patientDetails['gender'] ?? 'Unknown'} | ${patientDetails['age'] ?? 'Unknown'} yrs | ${patientDetails['weight'] ?? 'Unknown'} kg",
+                            style: TextStyle(fontSize: 14)),
                       ],
                     ),
                   ],
@@ -52,49 +55,53 @@ class DiagnosisResultPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
 
-              // Diagnosis Section with Border (Green Box)
+              // Diagnosis Section with Dynamic Color and Text
               Container(
                 width: double.infinity, // Make the box take the full width
                 padding: EdgeInsets.all(20.0), // Increased padding
                 decoration: BoxDecoration(
-                  color: Colors.orange.shade50, // Light orange background for the box
+                  color: isDetected ? Colors.red.shade50 : Colors.green.shade50,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: Colors.orange.shade300, // Light orange border
+                    color: isDetected ? Colors.red.shade300 : Colors.green.shade300,
                     width: 2,
                   ),
                 ),
                 child: Column(
                   children: [
                     Icon(
-                      Icons.thumb_up, // Thumbs-up icon
-                      color: Colors.green,
-                      size: 79, // Increased size of the thumbs-up icon
+                      Icons.warning, // Warning icon for detected
+                      color: isDetected ? Colors.red : Colors.green,
+                      size: 79, // Icon size
                     ),
                     SizedBox(height: 10),
-                    // Added border for the "Not Detected" text and centered
+                    // Dynamic Container for the "Detected" or "Not Detected" text
                     Container(
                       padding: EdgeInsets.all(8.0),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.green.shade300, // Light green border
+                          color: isDetected ? Colors.red.shade300 : Colors.green.shade300,
                           width: 2,
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Center(  // Centering the text inside the container
+                      child: Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center, // Centering the row horizontally
                           children: [
                             Icon(
                               Icons.local_hospital, // Hospital safety icon
-                              color: Colors.green,
+                              color: isDetected ? Colors.red : Colors.green,
                               size: 20,
                             ),
                             SizedBox(width: 5),
                             Text(
-                              "$diseaseName Not Detected", // Display the disease status
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.green),
+                              isDetected ? "$diseaseName Detected" : "$diseaseName Not Detected",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: isDetected ? Colors.red : Colors.green,
+                              ),
                             ),
                           ],
                         ),
@@ -102,7 +109,9 @@ class DiagnosisResultPage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     Text(
-                      '*You may not have $diseaseName. But suspecting to have such a disease might be concerning. Please seek medical attention.*',
+                      isDetected
+                          ? '*You are diagnosed with $diseaseName. This is a serious condition. Please seek medical help immediately. Immediate action required.'
+                          : '*You may not have $diseaseName. But suspecting to have such a disease might be concerning. Please seek medical attention.',
                       style: TextStyle(fontSize: 14, color: Colors.grey.shade700),
                       textAlign: TextAlign.center,
                     ),
@@ -110,9 +119,9 @@ class DiagnosisResultPage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ConsultationPage()),
-    );
+                          context,
+                          MaterialPageRoute(builder: (context) => ConsultationPage()),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFF8B01),
@@ -122,7 +131,7 @@ class DiagnosisResultPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10), // Rounded corners
                         ),
                       ),
-                      child: Text('Get Professional Help', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      child: Text('Get Professional Help', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
                     ),
                   ],
                 ),
@@ -144,7 +153,7 @@ class DiagnosisResultPage extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text(
-                        "Find a doctor", 
+                        "Find a doctor",
                         style: TextStyle(fontWeight: FontWeight.bold) // Bold font for title
                       ),
                       subtitle: Text("View doctors in our network", style: TextStyle(fontSize: 12)), // Small description below title
@@ -155,7 +164,7 @@ class DiagnosisResultPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text(
-                        "Treatment options", 
+                        "Treatment options",
                         style: TextStyle(fontWeight: FontWeight.bold) // Bold font for title
                       ),
                       subtitle: Text("Learn about treatments for $diseaseName", style: TextStyle(fontSize: 12)), // Small description below title
@@ -166,7 +175,7 @@ class DiagnosisResultPage extends StatelessWidget {
                     ),
                     ListTile(
                       title: Text(
-                        "Second opinion", 
+                        "Second opinion",
                         style: TextStyle(fontWeight: FontWeight.bold) // Bold font for title
                       ),
                       subtitle: Text("Get a second opinion from a specialist", style: TextStyle(fontSize: 12)), // Small description below title
@@ -183,10 +192,10 @@ class DiagnosisResultPage extends StatelessWidget {
               // Book Online Consultation Button with Full Width
               ElevatedButton(
                 onPressed: () {
-                   Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ConsultationPage()),
-    );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ConsultationPage()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFFF8B01),
@@ -197,8 +206,7 @@ class DiagnosisResultPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10), // Rounded corners
                   ),
                 ),
-                child: Text("Book Online Consultation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                
+                child: Text("Book Online Consultation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.white)),
               ),
             ],
           ),
