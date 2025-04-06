@@ -38,8 +38,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/image_assets/ayusetu.svg
-    - assets/image_assets/doctor.svg
-    - assets/image_assets/patient.svg
+    - assets/image_assets/doctor.png
+    - assets/image_assets/patient.png
     - assets/image_assets/ayusetu white.svg
     - assets/image_assets/google_icon.svg
     - assets/image_assets/ayusetu_logo.png
